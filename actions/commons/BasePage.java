@@ -359,5 +359,5 @@ public class BasePage {
 //		explicitWait
 //				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(xpathlocator)));
 //	}
-	private long longtimeOut = longtimeOut;
+	private long longtimeOut = 30;
 }
