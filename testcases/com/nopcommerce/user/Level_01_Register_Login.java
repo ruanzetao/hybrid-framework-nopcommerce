@@ -11,7 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class User_01_Register_Login {
+public class Level_01_Register_Login {
 
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
@@ -20,7 +20,8 @@ public class User_01_Register_Login {
 	@BeforeClass
 	public void beforeClass() {
 
-		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver",
+				projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 
 		emailAddress = "afc" + generateFakeNumber() + "@mailinator.com";
@@ -39,10 +40,12 @@ public class User_01_Register_Login {
 				"First name is required.");
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#LastName-error")).getText(),
 				"Last name is required.");
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(), "Email is required.");
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(),
+				"Email is required.");
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#Password-error")).getText(),
 				"Password is required.");
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#ConfirmPassword-error")).getText(),
+		Assert.assertEquals(
+				driver.findElement(By.cssSelector("span#ConfirmPassword-error")).getText(),
 				"Password is required.");
 	}
 
@@ -55,7 +58,8 @@ public class User_01_Register_Login {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(), "Wrong email");
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(),
+				"Wrong email");
 	}
 
 	@Test
@@ -67,8 +71,8 @@ public class User_01_Register_Login {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.result")).getText()
-				, "Your registration completed");
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.result")).getText(),
+				"Your registration completed");
 		driver.findElement(By.cssSelector("a.ico-logout")).click();
 	}
 
@@ -81,9 +85,9 @@ public class User_01_Register_Login {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.message-error li")).getText()
-				, "The specified email already exists");
-		
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.message-error li")).getText(),
+				"The specified email already exists");
+
 	}
 
 	@Test
@@ -95,8 +99,8 @@ public class User_01_Register_Login {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc12");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc12");
 		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("#Password-error")).getText()
-				, "Password must meet the following rules: \nmust have at least 6 characters");
+		Assert.assertEquals(driver.findElement(By.cssSelector("#Password-error")).getText(),
+				"Password must meet the following rules: \nmust have at least 6 characters");
 	}
 
 	@Test
@@ -108,8 +112,8 @@ public class User_01_Register_Login {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc123");
 		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("#ConfirmPassword-error")).getText()
-				, "The password and confirmation password do not match.");
+		Assert.assertEquals(driver.findElement(By.cssSelector("#ConfirmPassword-error")).getText(),
+				"The password and confirmation password do not match.");
 	}
 
 	public int generateFakeNumber() {
