@@ -11,15 +11,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import commons.BasePage;
-
 public class Level_01_Register_Login {
 
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String emailAddress;
-
-	BasePage basePage;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -38,12 +34,8 @@ public class Level_01_Register_Login {
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
-		basePage.waitForElementClickable(driver, "a.ico-register");
-		basePage.clickToElement(driver, "a.ico-register");
-
-		basePage.waitForElementClickable(driver, "button#register-button");
-		basePage.clickToElement(driver, "button#register-button");
-
+		driver.findElement(By.cssSelector("a.ico-register")).click();
+		driver.findElement(By.cssSelector("button#register-button")).click();
 
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#FirstName-error")).getText(),
 				"First name is required.");
