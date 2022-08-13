@@ -38,15 +38,17 @@ public class Level_02_Apply_BasePage {
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
+		System.out.println("One");
+		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
+		basePage.clickToElement(driver, "//a[@class='ico-register']");
+		System.out.println("Two");
 
-		basePage.waitForElementClickable(driver, "a.ico-register");
-		basePage.clickToElement(driver, "a.ico-register");
+		basePage.waitForElementClickable(driver, "//button[@id='register-button']");
+		basePage.clickToElement(driver, "//button[@id='register-button']");
 
-		basePage.waitForElementClickable(driver, "button#register-button");
-		basePage.clickToElement(driver, "button#register-button");
-
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#FirstName-error")).getText(),
+		Assert.assertEquals(basePage.getElementText(driver, "//span[@id=['FirstName-error']"),
 				"First name is required.");
+
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#LastName-error")).getText(),
 				"Last name is required.");
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(),
@@ -60,15 +62,22 @@ public class Level_02_Apply_BasePage {
 
 	@Test
 	public void TC_02_Invalid_Email() {
-		driver.findElement(By.cssSelector("a.ico-register")).click();
+		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
+		basePage.clickToElement(driver, "//a[@class='ico-register']");
+
+		basePage.waitForElementVisible(driver, "input#FirstName");
+		basePage.sendkeyToElement(driver, "input#FirstName", "Automation");
+		System.out.println("Break1");
 		driver.findElement(By.cssSelector("input#FirstName")).sendKeys("Automation");
 		driver.findElement(By.cssSelector("input#LastName")).sendKeys("FC");
 		driver.findElement(By.cssSelector("input#Email")).sendKeys("123@456#!");
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc@!123");
-		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(),
-				"Wrong email");
+
+		basePage.waitForElementClickable(driver, "button#register-button");
+		basePage.clickToElement(driver, "button#register-button");
+
+		Assert.assertEquals(basePage.getElementText(driver, "span#Email-error"), "Wrong email");
 	}
 
 	@Test
