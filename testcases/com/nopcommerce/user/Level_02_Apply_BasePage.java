@@ -48,7 +48,6 @@ public class Level_02_Apply_BasePage {
 
 		Assert.assertEquals(basePage.getElementText(driver, "//span[@id=['FirstName-error']"),
 				"First name is required.");
-
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#LastName-error")).getText(),
 				"Last name is required.");
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#Email-error")).getText(),
@@ -65,10 +64,9 @@ public class Level_02_Apply_BasePage {
 		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
 		basePage.clickToElement(driver, "//a[@class='ico-register']");
 
-		basePage.waitForElementVisible(driver, "input#FirstName");
-		basePage.sendkeyToElement(driver, "input#FirstName", "Automation");
+		basePage.waitForElementVisible(driver, "//input[@id='FirstName']");
+		basePage.sendkeyToElement(driver, "//input[@id='FirstName']", "Automation");
 		System.out.println("Break1");
-		driver.findElement(By.cssSelector("input#FirstName")).sendKeys("Automation");
 		driver.findElement(By.cssSelector("input#LastName")).sendKeys("FC");
 		driver.findElement(By.cssSelector("input#Email")).sendKeys("123@456#!");
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
