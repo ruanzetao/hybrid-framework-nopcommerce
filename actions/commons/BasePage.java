@@ -112,7 +112,8 @@ public class BasePage {
 	}
 
 	public void clickToElement(WebDriver driver, String xpathLocator) {
-		getWebElement(driver, xpathLocator);
+		getWebElement(driver, xpathLocator).click();
+
 	}
 
 	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {

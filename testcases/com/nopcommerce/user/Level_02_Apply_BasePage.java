@@ -16,10 +16,12 @@ import commons.BasePage;
 public class Level_02_Apply_BasePage {
 
 	WebDriver driver;
+	BasePage basePage;
+
 	String projectPath = System.getProperty("user.dir");
 	String emailAddress;
 
-	BasePage basePage;
+
 
 	@BeforeClass
 	public void beforeClass() {
@@ -27,7 +29,8 @@ public class Level_02_Apply_BasePage {
 		System.setProperty("webdriver.gecko.driver",
 				projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
-
+		// Init basePage
+		basePage = new BasePage();
 		emailAddress = "afc" + generateFakeNumber() + "@mailinator.com";
 
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -38,15 +41,12 @@ public class Level_02_Apply_BasePage {
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
-		System.out.println("One");
 		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
 		basePage.clickToElement(driver, "//a[@class='ico-register']");
-		System.out.println("Two");
-
 		basePage.waitForElementClickable(driver, "//button[@id='register-button']");
 		basePage.clickToElement(driver, "//button[@id='register-button']");
 
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id=['FirstName-error']"),
+		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='FirstName-error']"),
 				"First name is required.");
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#LastName-error")).getText(),
 				"Last name is required.");
@@ -72,10 +72,11 @@ public class Level_02_Apply_BasePage {
 		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
 		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc@!123");
 
-		basePage.waitForElementClickable(driver, "button#register-button");
-		basePage.clickToElement(driver, "button#register-button");
+		basePage.waitForElementClickable(driver, "//button[@id='register-button']");
+		basePage.clickToElement(driver, "//button[@id='register-button']");
 
-		Assert.assertEquals(basePage.getElementText(driver, "span#Email-error"), "Wrong email");
+		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='Email-error']"),
+				"Wrong email");
 	}
 
 	@Test
@@ -106,18 +107,18 @@ public class Level_02_Apply_BasePage {
 
 	}
 
-	@Test
-	public void TC_05_Register_Password_Less_Than_6_Chars() {
-		driver.findElement(By.cssSelector("a.ico-register")).click();
-		driver.findElement(By.cssSelector("input#FirstName")).sendKeys("Automation");
-		driver.findElement(By.cssSelector("input#LastName")).sendKeys("FC");
-		driver.findElement(By.cssSelector("input#Email")).sendKeys(emailAddress);
-		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc12");
-		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc12");
-		driver.findElement(By.cssSelector("button#register-button")).click();
-		Assert.assertEquals(driver.findElement(By.cssSelector("#Password-error")).getText(),
-				"Password must meet the following rules: \nmust have at least 6 characters");
-	}
+//	@Test
+//	public void TC_05_Register_Password_Less_Than_6_Chars() {
+//		driver.findElement(By.cssSelector("a.ico-register")).click();
+//		driver.findElement(By.cssSelector("input#FirstName")).sendKeys("Automation");
+//		driver.findElement(By.cssSelector("input#LastName")).sendKeys("FC");
+//		driver.findElement(By.cssSelector("input#Email")).sendKeys(emailAddress);
+//		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc12");
+//		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc12");
+//		driver.findElement(By.cssSelector("button#register-button")).click();
+//		Assert.assertEquals(driver.findElement(By.cssSelector("#Password-error")).getText(),
+//				"Password must meet the following rules: \nmust have at least 6 characters");
+//	}
 
 	@Test
 	public void TC_06_Invalid_Comfirm_Password() {
