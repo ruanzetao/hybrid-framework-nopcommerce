@@ -3,7 +3,6 @@ package com.nopcommerce.user;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -90,8 +89,8 @@ public class Level_03_Page_Object {
 		registerPage.inputToEmailTextbox(emailAddress);
 		registerPage.inputToPasswordTextbox(password);
 		registerPage.inputToConfirmPasswordTextbox(password);
-		// Assert.assertEquals(registerPage.get, false);
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.result")).getText(), "Your registration completed");
+		registerPage.clickToRegisterButton();
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 		registerPage.clickToLogoutLink();
 	}
 
