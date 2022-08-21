@@ -18,13 +18,19 @@ public class HomePageObject extends BasePage {
 	}
 
 	public void clickToLoginLink() {
-		// TODO Auto-generated method stub
-
+		waitForElementClickable(driver, HomePageUI.LOGIN_LINK);
+		clickToElement(driver, HomePageUI.LOGIN_LINK);
 	}
 
 	public boolean isMyAccountLinkDisplayed() {
-		// TODO Auto-generated method stub
+		waitForElementVisible(driver, HomePageUI.MY_ACCOUNT_LINK);
+		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
 		return false;
+	}
+
+	public void clickToMyAccountLink() {
+		waitForElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
+		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
 	}
 
 }

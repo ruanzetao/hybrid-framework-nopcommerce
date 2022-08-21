@@ -45,7 +45,7 @@ public class Level_03_Page_Object_02_Login {
 		driver.manage().window().maximize();
 
 		homePage = new HomePageObject(driver);
-//		registerPage = new RegisterPageObject(driver);
+		registerPage = new RegisterPageObject(driver);
 
 		firstName = "Automation";
 		lastName = "FC";
