@@ -21,15 +21,16 @@ public class Level_03_Page_Object_02_Login {
 	BasePage basePage;
 
 	String projectPath = System.getProperty("user.dir");
-	String emailAddress;
 
 	private HomePageObject homePage;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;
 
-	String firstName;
-	String lastName;
-	String password;
+	String firstName, lastName, validPassword;
+	String emailAddress;
+	String validEmail;
+	String invalidEmail;
+	String notFoundEmail;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -48,17 +49,23 @@ public class Level_03_Page_Object_02_Login {
 
 		firstName = "Automation";
 		lastName = "FC";
+		validPassword = "123456";
 		emailAddress = "afc" + generateFakeNumber() + "@mailinator.com";
-		password = "123456";
+		validEmail = "afc" + generateFakeNumber() + "@mailinator.com";
+		invalidEmail = "afc123!@mailinator.com";
+		notFoundEmail = "automationbysang@mailinator.com";
 
-//		homePage.clickToRegisterLink();
-//		registerPage.inputToFirstnameTextbox(firstName);
-//		registerPage.inputToLastnameTextbox(lastName);
-//		registerPage.inputToEmailTextbox(emailAddress);
-//		registerPage.inputToPasswordTextbox(password);
-//		registerPage.inputToConfirmPasswordTextbox(password);
-//		registerPage.clickToRegisterButton();
-//		registerPage.clickToLogoutLink();
+		// Register an account
+		homePage.clickToRegisterLink();
+		registerPage.inputToFirstnameTextbox(firstName);
+		registerPage.inputToLastnameTextbox(lastName);
+		registerPage.inputToEmailTextbox(emailAddress);
+		registerPage.inputToPasswordTextbox(validPassword);
+		registerPage.inputToConfirmPasswordTextbox(validPassword);
+		registerPage.clickToRegisterButton();
+		registerPage.clickToLogoutLink();
+		homePage = new HomePageObject(driver);
+
 	}
 
 	@Test
@@ -69,33 +76,76 @@ public class Level_03_Page_Object_02_Login {
 		loginPage = new LoginPageObject(driver);
 		loginPage.clickToLoginButton();
 
-		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Please enter your");
+		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Please enter your email");
 
 	}
 
 	@Test
 	public void TC_02_Login_Invalid_Email() {
+		homePage.clickToLoginLink();
+
+		// Tu trang Home chuyen sang trang Login
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTextbox(invalidEmail);
+		loginPage.clickToLoginButton();
+		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Wrong email");
+
 
 	}
 
 	@Test
 	public void TC_03_Login_Email_Not_Found() {
+		homePage.clickToLoginLink();
+
+		// Tu trang Home chuyen sang trang Login
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTextbox(notFoundEmail);
+		loginPage.clickToLoginButton();
+		Assert.assertEquals(loginPage.getErrorMessageUnsuccessful(),
+				"Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
 
 	}
 
 	@Test
 	public void TC_04_Login_Exsting_Email_Empty_Password() {
 
+		homePage.clickToLoginLink();
 
+		// Tu trang Home chuyen sang trang Login
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTextbox(emailAddress);
+		loginPage.inputToPasswordTextbox("");
+		loginPage.clickToLoginButton();
+		Assert.assertEquals(loginPage.getErrorMessageUnsuccessful(),
+				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
 	public void TC_05_Login_Exsting_Email_Incorrect_Password() {
+		homePage.clickToLoginLink();
 
+		// Tu trang Home chuyen sang trang Login
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTextbox(emailAddress);
+		loginPage.inputToPasswordTextbox("654321");
+		loginPage.clickToLoginButton();
+		Assert.assertEquals(loginPage.getErrorMessageUnsuccessful(),
+				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
 	public void TC_06_Login_Valid_Email_Password() {
+		homePage.clickToLoginLink();
+
+		// Tu trang Home chuyen sang trang Login
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTextbox(emailAddress);
+		loginPage.inputToPasswordTextbox(validPassword);
+		loginPage.clickToLoginButton();
+
+		// Login thanh cong => Homepage
+		homePage = new HomePageObject(driver);
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 
 	}
 

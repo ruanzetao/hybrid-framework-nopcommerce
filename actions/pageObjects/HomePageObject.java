@@ -22,4 +22,9 @@ public class HomePageObject extends BasePage {
 
 	}
 
+	public boolean isMyAccountLinkDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
