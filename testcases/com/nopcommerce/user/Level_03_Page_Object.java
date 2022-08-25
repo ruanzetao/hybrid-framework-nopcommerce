@@ -127,7 +127,7 @@ public class Level_03_Page_Object {
 //		driver.findElement(By.cssSelector("input#FirstName")).sendKeys("Automation");
 //		driver.findElement(By.cssSelector("input#LastName")).sendKeys("FC");
 //		driver.findElement(By.cssSelector("input#Email")).sendKeys(emailAddress);
-//		driver.findElement(By.cssSelector("input#Password")).sendKeys("abc@!123");
+//		driver.findElement(By.ccssSelector("input#Password")).sendKeys("abc@!123");
 //		driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys("abc123");
 //		driver.findElement(By.cssSelector("button#register-button")).click();
 //		Assert.assertEquals(driver.findElement(By.cssSelector("#ConfirmPassword-error")).getText(),
