@@ -67,9 +67,12 @@ public class RegisterPageObject extends BasePage {
 		sendkeyToElement(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, confirmPassword);
 	}
 
-	public void clickToLogoutLink() {
+	public HomePageObject clickToLogoutLink() {
 		waitForElementClickable(driver, RegisterPageUI.LOGOUT_LINK);
 		clickToElement(driver, RegisterPageUI.LOGOUT_LINK);
+		// return new HomePageObject(driver);
+
+		return PageGeneratorManager.getHomePage(driver);
 	}
 
 	public String getRegisterSuccessMessage() {
