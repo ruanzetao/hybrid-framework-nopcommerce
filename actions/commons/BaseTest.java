@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -28,4 +29,9 @@ public class BaseTest {
 		return driver;
 	}
 
+	public int generateFakeNumber() {
+		Random rand = new Random();
+		return (int) rand.nextInt(9999);
+
+	}
 }
