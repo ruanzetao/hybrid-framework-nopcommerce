@@ -14,7 +14,7 @@ import commons.BasePage;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
-public class Level_03_Page_Object {
+public class Level_03_Page_Object_01_Register {
 
 	private WebDriver driver;
 	BasePage basePage;

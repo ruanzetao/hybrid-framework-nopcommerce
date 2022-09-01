@@ -15,7 +15,7 @@ import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
 
-public class Level_03_Page_Object_Register_Login {
+public class Level_03_Page_Object_Register_Login_Success {
 
 	private WebDriver driver;
 	BasePage basePage;
