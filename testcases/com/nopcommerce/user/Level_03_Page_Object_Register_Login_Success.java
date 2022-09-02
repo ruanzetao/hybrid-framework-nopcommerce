@@ -23,10 +23,6 @@ public class Level_03_Page_Object_Register_Login_Success {
 	String projectPath = System.getProperty("user.dir");
 	String emailAddress;
 
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-
 	String firstName;
 	String lastName;
 	String password;
@@ -34,8 +30,7 @@ public class Level_03_Page_Object_Register_Login_Success {
 	@BeforeClass
 	public void beforeClass() {
 
-		System.setProperty("webdriver.gecko.driver",
-				projectPath + "\\browserDrivers\\geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		// Init basePage
 		basePage = new BasePage();
@@ -46,14 +41,11 @@ public class Level_03_Page_Object_Register_Login_Success {
 		homePage = new HomePageObject(driver);
 		registerPage = new RegisterPageObject(driver);
 
-
 		firstName = "Automation";
 		lastName = "FC";
 		emailAddress = "afc" + generateFakeNumber() + "@mailinator.com";
 		password = "123456";
 	}
-
-
 
 	@Test
 	public void TC_01_Register_Success() {
@@ -78,7 +70,6 @@ public class Level_03_Page_Object_Register_Login_Success {
 
 	}
 
-
 	public int generateFakeNumber() {
 		Random rand = new Random();
 		return (int) rand.nextInt(9999);
@@ -89,4 +80,9 @@ public class Level_03_Page_Object_Register_Login_Success {
 	public void afterClass() {
 		driver.quit();
 	}
+
+	private HomePageObject homePage;
+	private RegisterPageObject registerPage;
+	private LoginPageObject loginPage;
+
 }

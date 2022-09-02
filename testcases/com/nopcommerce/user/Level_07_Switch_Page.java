@@ -12,10 +12,13 @@ import org.testng.annotations.Test;
 
 import commons.BasePage;
 import commons.BaseTest;
+import pageObjects.AddressPageObject;
+import pageObjects.CustomerInforPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
-import pageObjects.MyAccountPageObject;
+import pageObjects.MyProductReviewPageObject;
 import pageObjects.RegisterPageObject;
+import pageObjects.RewardPointPageObject;
 
 public class Level_07_Switch_Page extends BaseTest {
 
@@ -25,11 +28,6 @@ public class Level_07_Switch_Page extends BaseTest {
 	String projectPath = System.getProperty("user.dir");
 	String emailAddress;
 
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private MyAccountPageObject myAccountPage;
-
 	String firstName;
 	String lastName;
 	String password;
@@ -37,10 +35,10 @@ public class Level_07_Switch_Page extends BaseTest {
 	@BeforeClass
 	public void beforeClass() {
 
-		System.setProperty("webdriver.gecko.driver",
-				projectPath + "\\browserDrivers\\geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		// Init basePage
+		// getBrowserDriver();
 		basePage = new BasePage();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get("https://demo.nopcommerce.com/");
@@ -48,15 +46,13 @@ public class Level_07_Switch_Page extends BaseTest {
 
 		homePage = new HomePageObject(driver);
 		registerPage = new RegisterPageObject(driver);
-		myAccountPage = new MyAccountPageObject(driver);
+		customerInforPage = new CustomerInforPageObject(driver);
 
 		firstName = "Automation";
 		lastName = "FC";
 		emailAddress = "afc" + generateFakeNumber() + "@mailinator.com";
 		password = "123456";
 	}
-
-
 
 	@Test
 	public void User_01_Register() {
@@ -74,29 +70,44 @@ public class Level_07_Switch_Page extends BaseTest {
 	@Test
 	public void User_02_Login() {
 		homePage.clickToRegisterLink();
-		homePage.clickToLoginLink();
-		loginPage = new LoginPageObject(driver);
+		loginPage = homePage.clickToLoginLink();
 		loginPage.inputToEmailTextbox(emailAddress);
 		loginPage.inputToPasswordTextbox(password);
 		loginPage.clickToLoginButton();
 
 		// Assert something
+		// Assert.assertTrue(customerInforPage.isCustomerInforPageDisplayed());
 	}
 
 	@Test
-	public void User_03_My_Account() {
-		myAccountPage = homePage.clickToMyAccountLink();
-		myAccountPage.clickToNewsLetterCheckbox();
+	public void User_03_Customer_Infor() {
+		customerInforPage = homePage.clickToMyAccountLink();
+		Assert.assertTrue(customerInforPage.isCustomerInforPageDisplayed());
 	}
 
 	@Test
-	public void User_04_Login() {
+	public void User_04_Switch_Page() {
+		// Customer Infor => Address
+		addressPage = customerInforPage.openAddressPage();
+		// Address => My product review
 
+		myProductReviewPage = addressPage.openMyProductReviewPage();
+		// My prod review => reward point
+		rewardPointPage = myProductReviewPage.openRewardPointPage();
+		// Reward point => Address
+		addressPage = rewardPointPage.openAddressPage();
+		// My product review => Address
+		addressPage = myProductReviewPage.openAddressPage();
+		// Address => Reward
+		rewardPointPage = addressPage.openRewardPointPage();
+		// Reward => My product review
+		myProductReviewPage = rewardPointPage.openMyProductReviewPage();
 	}
 
 	@Test
-	public void User_05_Login() {
-
+	public void User_05_Switch_Role() {
+		// Role User => role Admin
+		// Role Admin => role User
 	}
 
 	@Test
@@ -114,4 +125,12 @@ public class Level_07_Switch_Page extends BaseTest {
 	public void afterClass() {
 		driver.quit();
 	}
+
+	private HomePageObject homePage;
+	private RegisterPageObject registerPage;
+	private LoginPageObject loginPage;
+	private CustomerInforPageObject customerInforPage;
+	private AddressPageObject addressPage;
+	private MyProductReviewPageObject myProductReviewPage;
+	private RewardPointPageObject rewardPointPage;
 }
