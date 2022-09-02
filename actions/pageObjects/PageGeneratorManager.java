@@ -30,4 +30,8 @@ public class PageGeneratorManager {
 	public static RewardPointPageObject getRewardPointPage(WebDriver driver) {
 		return new RewardPointPageObject(driver);
 	}
+
+	public static CustomerInforPageObject getCustomerInforPage(WebDriver driver) {
+		return new CustomerInforPageObject(driver);
+	}
 }

@@ -88,20 +88,19 @@ public class Level_07_Switch_Page extends BaseTest {
 	@Test
 	public void User_04_Switch_Page() {
 		// Customer Infor => Address
-		addressPage = customerInforPage.openAddressPage();
+		addressPage = customerInforPage.openAddressPage(driver);
 		// Address => My product review
-
-		myProductReviewPage = addressPage.openMyProductReviewPage();
+		myProductReviewPage = addressPage.openMyProductReviewPage(driver);
 		// My prod review => reward point
-		rewardPointPage = myProductReviewPage.openRewardPointPage();
+		rewardPointPage = myProductReviewPage.openRewardPointPage(driver);
 		// Reward point => Address
-		addressPage = rewardPointPage.openAddressPage();
+		addressPage = rewardPointPage.openAddressPage(driver);
 		// My product review => Address
-		addressPage = myProductReviewPage.openAddressPage();
+		addressPage = myProductReviewPage.openAddressPage(driver);
 		// Address => Reward
-		rewardPointPage = addressPage.openRewardPointPage();
+		rewardPointPage = addressPage.openRewardPointPage(driver);
 		// Reward => My product review
-		myProductReviewPage = rewardPointPage.openMyProductReviewPage();
+		myProductReviewPage = rewardPointPage.openMyProductReviewPage(driver);
 	}
 
 	@Test

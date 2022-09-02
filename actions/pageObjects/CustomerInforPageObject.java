@@ -17,10 +17,4 @@ public class CustomerInforPageObject extends BasePage {
 		return isElementDisplayed(driver, CustomerInforPageUI.CUSTOMER_INFOR_HEADER);
 	}
 
-	public AddressPageObject openAddressPage() {
-		waitForElementClickable(driver, CustomerInforPageUI.ADDRESS_LINK);
-		clickToElement(driver, CustomerInforPageUI.ADDRESS_LINK);
-		return PageGeneratorManager.getAddressPage(driver);
-	}
-
 }

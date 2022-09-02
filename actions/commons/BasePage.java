@@ -14,6 +14,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.AddressPageObject;
+import pageObjects.CustomerInforPageObject;
+import pageObjects.MyProductReviewPageObject;
+import pageObjects.PageGeneratorManager;
+import pageObjects.RewardPointPageObject;
+import pageUIs.BasePageUI;
+
 public class BasePage {
 
 	public static BasePage getBasePageObject() {
@@ -120,7 +127,7 @@ public class BasePage {
 
 	}
 
-	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {
+	protected void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {
 		WebElement element = getWebElement(driver, xpathLocator);
 		element.clear();
 		element.sendKeys(textValue);
@@ -130,14 +137,12 @@ public class BasePage {
 		return getWebElement(driver, xpathLocator).getText();
 	}
 
-	protected void selectItemInDefaultDropdown(WebDriver driver, String xpathLocator,
-			String textItem) {
+	protected void selectItemInDefaultDropdown(WebDriver driver, String xpathLocator, String textItem) {
 		Select select = new Select(getWebElement(driver, xpathLocator));
 		select.selectByValue(textItem);
 	}
 
-	protected String getSelectedItemDefaultDropdown(WebDriver driver, String xpathLocator,
-			String textItem) {
+	protected String getSelectedItemDefaultDropdown(WebDriver driver, String xpathLocator, String textItem) {
 		Select select = new Select(getWebElement(driver, xpathLocator));
 		return select.getFirstSelectedOption().getText();
 	}
@@ -147,14 +152,14 @@ public class BasePage {
 		return select.isMultiple();
 	}
 
-	protected void selectItemInCustomDropdown(WebDriver driver, String parentLocator,
-			String childItemLocator, String expectedItem) {
+	protected void selectItemInCustomDropdown(WebDriver driver, String parentLocator, String childItemLocator,
+			String expectedItem) {
 		getWebElement(driver, parentLocator).click();
 		sleepInSecond(1);
 
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		List<WebElement> allItems = explicitWait.until(
-				ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childItemLocator)));
+		List<WebElement> allItems = explicitWait
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childItemLocator)));
 
 		for (WebElement item : allItems) {
 			if (item.getText().trim().equals(expectedItem)) {
@@ -257,11 +262,11 @@ public class BasePage {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		WebElement element = getWebElement(driver, locator);
 		String originalStyle = element.getAttribute("style");
-		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element,
-				"style", "border: 2px solid red; border-style: dashed;");
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style",
+				"border: 2px solid red; border-style: dashed;");
 		sleepInSecond(1);
-		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element,
-				"style", originalStyle);
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style",
+				originalStyle);
 	}
 
 	protected void clickToElementByJS(WebDriver driver, String locator) {
@@ -271,14 +276,12 @@ public class BasePage {
 
 	protected void scrollToElement(WebDriver driver, String locator) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(true);",
-				getWebElement(driver, locator));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator));
 	}
 
 	protected void sendkeyToElementByJS(WebDriver driver, String locator, String value) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].setAttribute('value', '" + value + "')",
-				getWebElement(driver, locator));
+		jsExecutor.executeScript("arguments[0].setAttribute('value', '" + value + "')", getWebElement(driver, locator));
 	}
 
 	protected void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove) {
@@ -305,8 +308,7 @@ public class BasePage {
 		ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {
-				return jsExecutor.executeScript("return document.readyState").toString()
-						.equals("complete");
+				return jsExecutor.executeScript("return document.readyState").toString().equals("complete");
 			}
 		};
 
@@ -338,20 +340,17 @@ public class BasePage {
 
 	protected void waitForAllElementsVisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(
-				ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathlocator)));
 	}
 
 	protected void waitForElementInvisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait
-				.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathlocator)));
 	}
 
 	protected void waitForAllElementsInvisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(ExpectedConditions
-				.invisibilityOfAllElements(getListWebElement(driver, xpathlocator)));
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, xpathlocator)));
 	}
 
 	public void waitForElementClickable(WebDriver driver, String xpathlocator) {
@@ -364,5 +363,30 @@ public class BasePage {
 //		explicitWait
 //				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(xpathlocator)));
 //	}
+
+	public AddressPageObject openAddressPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
+		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+		return PageGeneratorManager.getAddressPage(driver);
+	}
+
+	public CustomerInforPageObject openCustomerInforPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
+		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+		return PageGeneratorManager.getCustomerInforPage(driver);
+	}
+
+	public MyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		return PageGeneratorManager.getMyProductReviewPage(driver);
+	}
+
+	public RewardPointPageObject openRewardPointPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		return PageGeneratorManager.getRewardPointPage(driver);
+	}
+
 	private long longtimeOut = 30;
 }
