@@ -9,9 +9,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 public class Level_04_Multiple_Browser extends BaseTest {
 
@@ -19,9 +19,9 @@ public class Level_04_Multiple_Browser extends BaseTest {
 	String projectPath = System.getProperty("user.dir");
 	String emailAddress;
 
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
+	private UserLoginPageObject loginPage;
 
 	String firstName;
 	String lastName;
@@ -33,8 +33,8 @@ public class Level_04_Multiple_Browser extends BaseTest {
 		System.out.println("Browser: " + browserName);
 		getBrowserDriver(browserName);
 
-		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObject(driver);
+		homePage = new UserHomePageObject(driver);
+		registerPage = new UserRegisterPageObject(driver);
 
 		firstName = "Automation";
 		lastName = "FC";
@@ -61,7 +61,7 @@ public class Level_04_Multiple_Browser extends BaseTest {
 	public void TC_02_Login_Success() {
 		homePage.clickToRegisterLink();
 		homePage.clickToLoginLink();
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(emailAddress);
 		loginPage.inputToPasswordTextbox(password);
 

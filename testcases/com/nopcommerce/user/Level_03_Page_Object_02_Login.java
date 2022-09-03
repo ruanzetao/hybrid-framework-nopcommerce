@@ -11,9 +11,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import commons.BasePage;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 public class Level_03_Page_Object_02_Login {
 
@@ -22,9 +22,9 @@ public class Level_03_Page_Object_02_Login {
 
 	String projectPath = System.getProperty("user.dir");
 
-	private HomePageObject homePage;
-	private LoginPageObject loginPage;
-	private RegisterPageObject registerPage;
+	private UserHomePageObject homePage;
+	private UserLoginPageObject loginPage;
+	private UserRegisterPageObject registerPage;
 
 	String firstName, lastName, validPassword;
 	String emailAddress;
@@ -44,8 +44,8 @@ public class Level_03_Page_Object_02_Login {
 		driver.get("https://demo.nopcommerce.com/");
 		driver.manage().window().maximize();
 
-		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObject(driver);
+		homePage = new UserHomePageObject(driver);
+		registerPage = new UserRegisterPageObject(driver);
 
 		firstName = "Automation";
 		lastName = "FC";
@@ -64,7 +64,7 @@ public class Level_03_Page_Object_02_Login {
 		registerPage.inputToConfirmPasswordTextbox(validPassword);
 		registerPage.clickToRegisterButton();
 		registerPage.clickToLogoutLink();
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 
 	}
 
@@ -73,7 +73,7 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.clickToLoginButton();
 
 		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Please enter your email");
@@ -85,7 +85,7 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(invalidEmail);
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Wrong email");
@@ -98,7 +98,7 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(notFoundEmail);
 		loginPage.clickToLoginButton();
 		Assert.assertEquals(loginPage.getErrorMessageUnsuccessful(),
@@ -112,7 +112,7 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(emailAddress);
 		loginPage.inputToPasswordTextbox("");
 		loginPage.clickToLoginButton();
@@ -125,7 +125,7 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(emailAddress);
 		loginPage.inputToPasswordTextbox("654321");
 		loginPage.clickToLoginButton();
@@ -138,13 +138,13 @@ public class Level_03_Page_Object_02_Login {
 		homePage.clickToLoginLink();
 
 		// Tu trang Home chuyen sang trang Login
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTextbox(emailAddress);
 		loginPage.inputToPasswordTextbox(validPassword);
 		loginPage.clickToLoginButton();
 
 		// Login thanh cong => Homepage
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 
 	}

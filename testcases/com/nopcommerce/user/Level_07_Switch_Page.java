@@ -12,13 +12,13 @@ import org.testng.annotations.Test;
 
 import commons.BasePage;
 import commons.BaseTest;
-import pageObjects.AddressPageObject;
-import pageObjects.CustomerInforPageObject;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.MyProductReviewPageObject;
-import pageObjects.RegisterPageObject;
-import pageObjects.RewardPointPageObject;
+import pageObjects.nopCommerce.user.UserAddressPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import pageObjects.nopCommerce.user.UserRewardPointPageObject;
 
 public class Level_07_Switch_Page extends BaseTest {
 
@@ -44,9 +44,9 @@ public class Level_07_Switch_Page extends BaseTest {
 		driver.get("https://demo.nopcommerce.com/");
 		driver.manage().window().maximize();
 
-		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObject(driver);
-		customerInforPage = new CustomerInforPageObject(driver);
+		homePage = new UserHomePageObject(driver);
+		registerPage = new UserRegisterPageObject(driver);
+		customerInforPage = new UserCustomerInforPageObject(driver);
 
 		firstName = "Automation";
 		lastName = "FC";
@@ -125,11 +125,11 @@ public class Level_07_Switch_Page extends BaseTest {
 		driver.quit();
 	}
 
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private CustomerInforPageObject customerInforPage;
-	private AddressPageObject addressPage;
-	private MyProductReviewPageObject myProductReviewPage;
-	private RewardPointPageObject rewardPointPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
+	private UserLoginPageObject loginPage;
+	private UserCustomerInforPageObject customerInforPage;
+	private UserAddressPageObject addressPage;
+	private UserMyProductReviewPageObject myProductReviewPage;
+	private UserRewardPointPageObject rewardPointPage;
 }

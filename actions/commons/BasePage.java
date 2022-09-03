@@ -14,12 +14,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.AddressPageObject;
-import pageObjects.CustomerInforPageObject;
-import pageObjects.MyProductReviewPageObject;
-import pageObjects.PageGeneratorManager;
-import pageObjects.RewardPointPageObject;
-import pageUIs.BasePageUI;
+import pageObjects.nopCommerce.user.UserAddressPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
+import pageObjects.nopCommerce.user.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserRewardPointPageObject;
+import pageUIs.nopCommerce.user.UserBasePageUI;
 
 public class BasePage {
 
@@ -27,7 +27,7 @@ public class BasePage {
 		return new BasePage();
 	}
 
-	protected void openPageUrl(WebDriver driver, String pageUrl) {
+	public void openPageUrl(WebDriver driver, String pageUrl) {
 
 		driver.get(pageUrl);
 	}
@@ -364,27 +364,27 @@ public class BasePage {
 //				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(xpathlocator)));
 //	}
 
-	public AddressPageObject openAddressPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
-		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+	public UserAddressPageObject openAddressPage(WebDriver driver) {
+		waitForElementClickable(driver, UserBasePageUI.ADDRESS_LINK);
+		clickToElement(driver, UserBasePageUI.ADDRESS_LINK);
 		return PageGeneratorManager.getAddressPage(driver);
 	}
 
-	public CustomerInforPageObject openCustomerInforPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
-		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+	public UserCustomerInforPageObject openCustomerInforPage(WebDriver driver) {
+		waitForElementClickable(driver, UserBasePageUI.ADDRESS_LINK);
+		clickToElement(driver, UserBasePageUI.ADDRESS_LINK);
 		return PageGeneratorManager.getCustomerInforPage(driver);
 	}
 
-	public MyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+	public UserMyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
+		waitForElementClickable(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getMyProductReviewPage(driver);
 	}
 
-	public RewardPointPageObject openRewardPointPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+	public UserRewardPointPageObject openRewardPointPage(WebDriver driver) {
+		waitForElementClickable(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getRewardPointPage(driver);
 	}
 
