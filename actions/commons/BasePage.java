@@ -14,10 +14,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageObjects.nopCommerce.user.UserAddressPageObject;
 import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
-import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
 import pageUIs.nopCommerce.user.UserBasePageUI;
 
@@ -114,12 +114,31 @@ public class BasePage {
 		return By.xpath(xpathLocator);
 	}
 
+	private By getByLocator(String locatorType) {
+		By by = null;
+
+		if (locatorType.startsWith("id=")) {
+			by = By.id(locatorType.substring(3));
+		} else if (locatorType.startsWith("class=")) {
+			by = By.className(locatorType.substring(6));
+		} else if (locatorType.startsWith("name=")) {
+			by = By.name(locatorType.substring(5));
+		} else if (locatorType.startsWith("css=")) {
+			by = By.cssSelector(locatorType.substring(4));
+		} else if (locatorType.startsWith("xpath=")) {
+			by = By.xpath(locatorType.substring(6));
+		} else {
+			throw new RuntimeException("Locator type is not supported");
+		}
+		return by;
+	}
+
 	protected WebElement getWebElement(WebDriver driver, String xpathLocator) {
-		return driver.findElement(By.xpath(xpathLocator));
+		return driver.findElement(getByLocator(xpathLocator));
 	}
 
 	protected List<WebElement> getListWebElement(WebDriver driver, String xpathLocator) {
-		return driver.findElements(By.xpath(xpathLocator));
+		return driver.findElements(getByLocator(xpathLocator));
 	}
 
 	public void clickToElement(WebDriver driver, String xpathLocator) {
@@ -159,7 +178,7 @@ public class BasePage {
 
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		List<WebElement> allItems = explicitWait
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childItemLocator)));
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(childItemLocator)));
 
 		for (WebElement item : allItems) {
 			if (item.getText().trim().equals(expectedItem)) {
@@ -335,17 +354,17 @@ public class BasePage {
 
 	public void waitForElementVisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(xpathlocator)));
 	}
 
 	protected void waitForAllElementsVisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(xpathlocator)));
 	}
 
 	protected void waitForElementInvisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(xpathlocator)));
 	}
 
 	protected void waitForAllElementsInvisible(WebDriver driver, String xpathlocator) {
@@ -355,13 +374,13 @@ public class BasePage {
 
 	public void waitForElementClickable(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathlocator)));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(xpathlocator)));
 	}
 
 //	public void waitForElementPresence(WebDriver driver, String xpathlocator) {
 //		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 //		explicitWait
-//				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(xpathlocator)));
+//				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(xpathlocator)));
 //	}
 
 	public UserAddressPageObject openAddressPage(WebDriver driver) {
