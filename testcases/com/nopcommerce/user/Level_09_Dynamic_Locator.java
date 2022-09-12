@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import commons.BasePage;
 import commons.BaseTest;
+import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageObjects.nopCommerce.user.UserAddressPageObject;
 import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
@@ -86,7 +87,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 	}
 
 	@Test
-	public void User_04_Dynamic_Page() {
+	public void User_04_Switch_Page() {
 		// Customer Infor => Address
 		addressPage = customerInforPage.openAddressPage(driver);
 		// Address => My product review
@@ -104,14 +105,38 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 	}
 
 	@Test
-	public void User_05_Switch_Role() {
-		// Role User => role Admin
-		// Role Admin => role User
+	public void User_04_Dynamic_Page_01() {
+		// My prod review => reward point
+		rewardPointPage = (UserRewardPointPageObject) myProductReviewPage.openMyAccountPagebyName(driver, "Reward points");
+		// Reward point => Address
+		addressPage = (UserAddressPageObject) rewardPointPage.openMyAccountPagebyName(driver, "Addresses");
+		// Address => Reward
+		rewardPointPage = (UserRewardPointPageObject) addressPage.openMyAccountPagebyName(driver, "Reward points");
+		// Reward => My product review
+		myProductReviewPage = (UserMyProductReviewPageObject) rewardPointPage.openMyAccountPagebyName(driver, "My product reviews");
 	}
 
 	@Test
-	public void User_06_Login() {
+	public void User_04_Dynamic_Page_02() {
+		// Customer infor => My product review:
+		customerInforPage.openMyAccountPagebyName(driver, "My product reviews");
+		myProductReviewPage = PageGeneratorManager.getMyProductReviewPage(driver);
 
+		// My prod review => reward point
+		myProductReviewPage.openMyAccountPagebyName(driver, "Reward points");
+		rewardPointPage = PageGeneratorManager.getRewardPointPage(driver);
+
+		// Reward point => Address
+		rewardPointPage.openMyAccountPagebyName(driver, "Addresses");
+		addressPage = PageGeneratorManager.getAddressPage(driver);
+
+		// Address => Reward
+		addressPage.openMyAccountPagebyName(driver, "Reward points");
+		rewardPointPage = PageGeneratorManager.getRewardPointPage(driver);
+
+		// Reward => My product review
+		rewardPointPage.openMyAccountPagebyName(driver, "My product reviews");
+		myProductReviewPage = PageGeneratorManager.getMyProductReviewPage(driver);
 	}
 
 	public int generateFakeNumber() {

@@ -19,7 +19,7 @@ import pageObjects.nopCommerce.user.UserAddressPageObject;
 import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
-import pageUIs.nopCommerce.user.UserBasePageUI;
+import pageUIs.nopCommerce.user.BasePageUI;
 
 public class BasePage {
 
@@ -270,6 +270,10 @@ public class BasePage {
 		return getWebElement(driver, xpathLocator).isDisplayed();
 	}
 
+	protected boolean isElementDisplayed(WebDriver driver, String locatorType, String... dynamicValues) {
+		return getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)).isDisplayed();
+	}
+
 	protected boolean isElementEnabled(WebDriver driver, String xpathLocator) {
 		return getWebElement(driver, xpathLocator).isEnabled();
 	}
@@ -389,9 +393,19 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(xpathlocator)));
 	}
 
+	public void waitForElementVisible(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
+	}
+
 	protected void waitForAllElementsVisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(xpathlocator)));
+	}
+
+	protected void waitForAllElementsVisible(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 
 	protected void waitForElementInvisible(WebDriver driver, String xpathlocator) {
@@ -399,43 +413,82 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(xpathlocator)));
 	}
 
+	protected void waitForElementInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
+	}
+
 	protected void waitForAllElementsInvisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, xpathlocator)));
 	}
 
-	public void waitForElementClickable(WebDriver driver, String xpathlocator) {
+	protected void waitForAllElementsInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(
+				ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, getDynamicXpath(locatorType, dynamicValues))));
+	}
+
+	protected void waitForElementClickable(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(xpathlocator)));
 	}
 
-//	public void waitForElementPresence(WebDriver driver, String xpathlocator) {
-//		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
-//		explicitWait
-//				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(xpathlocator)));
-//	}
+	protected void waitForElementClickable(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
+	}
 
+	protected void waitForElementPresence(WebDriver driver, String xpathlocator) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(xpathlocator)));
+	}
+
+	protected void waitForElementPresence(WebDriver driver, String locatorType, String... dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
+	}
+
+	// Tối ưu ở bài Dynamic Locator
+	public BasePage openMyAccountPagebyName(WebDriver driver, String pageName) {
+		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
+		switch (pageName) {
+		case "Customer info":
+			return PageGeneratorManager.getCustomerInforPage(driver);
+		case "Addresses":
+			return PageGeneratorManager.getAddressPage(driver);
+		case "My product reviews":
+			return PageGeneratorManager.getMyProductReviewPage(driver);
+		case "Reward points":
+			return PageGeneratorManager.getRewardPointPage(driver);
+		default:
+			throw new RuntimeException("Invalid page name at My Account area.");
+		}
+	}
+
+	// Tối ưu ở bài Switch Page
 	public UserAddressPageObject openAddressPage(WebDriver driver) {
-		waitForElementClickable(driver, UserBasePageUI.ADDRESS_LINK);
-		clickToElement(driver, UserBasePageUI.ADDRESS_LINK);
+		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
+		clickToElement(driver, BasePageUI.ADDRESS_LINK);
 		return PageGeneratorManager.getAddressPage(driver);
 	}
 
 	public UserCustomerInforPageObject openCustomerInforPage(WebDriver driver) {
-		waitForElementClickable(driver, UserBasePageUI.ADDRESS_LINK);
-		clickToElement(driver, UserBasePageUI.ADDRESS_LINK);
+		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
+		clickToElement(driver, BasePageUI.ADDRESS_LINK);
 		return PageGeneratorManager.getCustomerInforPage(driver);
 	}
 
 	public UserMyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
-		waitForElementClickable(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getMyProductReviewPage(driver);
 	}
 
 	public UserRewardPointPageObject openRewardPointPage(WebDriver driver) {
-		waitForElementClickable(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, UserBasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getRewardPointPage(driver);
 	}
 
