@@ -106,7 +106,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 
 	@Test
 	public void User_04_Dynamic_Page_01() {
-		// My prod review => reward point
+		// My prod review => reward point update
 		rewardPointPage = (UserRewardPointPageObject) myProductReviewPage.openMyAccountPagebyName(driver, "Reward points");
 		// Reward point => Address
 		addressPage = (UserAddressPageObject) rewardPointPage.openMyAccountPagebyName(driver, "Addresses");

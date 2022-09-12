@@ -449,7 +449,7 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 
-	// Tối ưu ở bài Dynamic Locator
+	// Tối ưu ở bài Dynamic Locator update
 	public BasePage openMyAccountPagebyName(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
