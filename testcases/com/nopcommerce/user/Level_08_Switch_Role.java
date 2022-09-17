@@ -43,7 +43,7 @@ public class Level_08_Switch_Role extends BaseTest {
 		// getBrowserDriver();
 		basePage = new BasePage();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.get(GlobalConstants.PORTAL_PAGE_URL);
+		driver.get(GlobalConstants.PORTAL_TESTING_URL);
 		driver.manage().window().maximize();
 
 		userHomePage = new UserHomePageObject(driver);
@@ -74,7 +74,7 @@ public class Level_08_Switch_Role extends BaseTest {
 		// Role User => role Admin
 		// Role Admin => role User
 
-		userHomePage.openPageUrl(driver, GlobalConstants.ADMIN_PAGE_URL);
+		userHomePage.openPageUrl(driver, GlobalConstants.ADMIN_TESTING_URL);
 		adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
 		adminLoginPage.loginAsAdmin(userEmailAddress, userPassword);
 		// Assert something
