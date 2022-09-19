@@ -6,8 +6,10 @@ import java.util.Set;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -52,7 +54,7 @@ public class BasePage {
 		driver.navigate().forward();
 	}
 
-	protected void refreshCurrentPage(WebDriver driver) {
+	public void refreshCurrentPage(WebDriver driver) {
 		driver.navigate().refresh();
 	}
 
@@ -155,8 +157,8 @@ public class BasePage {
 
 	}
 
-	public void clickToElement(WebDriver driver, String xpathLocator, String... dynamicValues) {
-		getWebElement(driver, xpathLocator).click();
+	public void clickToElement(WebDriver driver, String locatorType, String... dynamicValues) {
+		getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)).click();
 
 	}
 
@@ -220,7 +222,7 @@ public class BasePage {
 		}
 	}
 
-	protected void sleepInSecond(long timeInSecond) {
+	public void sleepInSecond(long timeInSecond) {
 		try {
 			Thread.sleep(timeInSecond * 100);
 		} catch (InterruptedException e) {
@@ -493,4 +495,14 @@ public class BasePage {
 	}
 
 	private long longtimeOut = 30;
+
+	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, locatorType), key).perform();
+	}
+
+	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key, String... dynamicValues) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)), key).perform();
+	}
 }

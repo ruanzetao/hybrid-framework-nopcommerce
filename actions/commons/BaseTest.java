@@ -29,6 +29,25 @@ public class BaseTest {
 		return driver;
 	}
 
+	protected WebDriver getBrowserDriver(String browserName, String appUrl) {
+		if (browserName.equals("firefox")) {
+			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+			driver = new FirefoxDriver();
+		} else if (browserName.equals("chrome")) {
+			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+			driver = new FirefoxDriver();
+		} else {
+			throw new RuntimeException("Browser invalid");
+		}
+
+		// Init basePage
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get(appUrl);
+		driver.manage().window().maximize();
+
+		return driver;
+	}
+
 	public int generateFakeNumber() {
 		Random rand = new Random();
 		return (int) rand.nextInt(9999);
