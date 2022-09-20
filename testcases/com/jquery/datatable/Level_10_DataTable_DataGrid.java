@@ -48,9 +48,27 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
 //		homePage.sleepInSecond(3);
 //	}
 
+//	@Test
+//	public void Table_03_Customer_Info() {
+//		homePage.getValuesEachRowAtAllPage();
+//	}
+
 	@Test
-	public void Table_03_Customer_Info() {
-		homePage.getValuesEachRowAtAllPage();
+	public void Table_04_Enter_To_Textbox_At_Any_Row() {
+		homePage.enterToTextboxAtRowNumberByColumnName("Album", "1", "Michael 97");
+		homePage.enterToTextboxAtRowNumberByColumnName("Artist", "1", "Michael Jackson");
+		homePage.enterToTextboxAtRowNumberByColumnName("Year", "1", "1997");
+		homePage.enterToTextboxAtRowNumberByColumnName("Price", "1", "15");
+
+		homePage.selectDropdownByColumnNameAtRowNumber("Origin", "1", "Japan");
+
+		homePage.clickToLoadButton();
+
+		homePage.checkToCheckboxByColumnNameAtRowNumber("With Poster?", "3");
+		homePage.checkToCheckboxByColumnNameAtRowNumber("With Poster?", "5");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "1");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "2");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "4");
 	}
 
 	public int generateFakeNumber() {
