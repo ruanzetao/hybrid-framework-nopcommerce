@@ -43,7 +43,7 @@ public class HomePageObject extends BasePage {
 			sleepInSecond(1);
 
 			// Get text tất cả row 1 page đưa vào array list
-			List<WebElement> allRowEachPage = getListWebElement(driver, HomePageUI.ALL_ROW_EACH_PAGE);
+			List<WebElement> allRowEachPage = getListWebElement(driver, HomePageUI.ALL_ROW_COUNTRY_EACH_PAGE);
 			for (WebElement eachRow : allRowEachPage) {
 				allRowValues.add(eachRow.getText());
 			}

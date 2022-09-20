@@ -3,7 +3,6 @@ package com.jquery.datatable;
 import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -25,29 +24,29 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
 		homePage = PageGeneratorManager.getHomePage(driver);
 	}
 
-	@Test
-	public void Table_01_Paging() {
-		homePage.openPagingByPageNumber("10");
-		homePage.sleepInSecond(3);
-		// Verify something
-		Assert.assertTrue(homePage.isPageNumberActived("10"));
-	}
+//	@Test
+//	public void Table_01_Paging() {
+//		homePage.openPagingByPageNumber("10");
+//		homePage.sleepInSecond(3);
+//		// Verify something
+//		Assert.assertTrue(homePage.isPageNumberActived("10"));
+//	}
 
-	@Test
-	public void Table_02_Enter_To_Header() {
-		homePage.refreshCurrentPage(driver);
-		homePage.enterToHeaderTextboxByLabel("Country", "Argentina");
-		homePage.enterToHeaderTextboxByLabel("Females", "338282");
-		homePage.enterToHeaderTextboxByLabel("Males", "348238");
-		homePage.enterToHeaderTextboxByLabel("Total", "687522");
-		homePage.sleepInSecond(3);
-
-		homePage.enterToHeaderTextboxByLabel("Country", "Angola");
-		homePage.enterToHeaderTextboxByLabel("Females", "276880");
-		homePage.enterToHeaderTextboxByLabel("Males", "276472");
-		homePage.enterToHeaderTextboxByLabel("Total", "553353");
-		homePage.sleepInSecond(3);
-	}
+//	@Test
+//	public void Table_02_Enter_To_Header() {
+//		homePage.refreshCurrentPage(driver);
+//		homePage.enterToHeaderTextboxByLabel("Country", "Argentina");
+//		homePage.enterToHeaderTextboxByLabel("Females", "338282");
+//		homePage.enterToHeaderTextboxByLabel("Males", "348238");
+//		homePage.enterToHeaderTextboxByLabel("Total", "687522");
+//		homePage.sleepInSecond(3);
+//
+//		homePage.enterToHeaderTextboxByLabel("Country", "Angola");
+//		homePage.enterToHeaderTextboxByLabel("Females", "276880");
+//		homePage.enterToHeaderTextboxByLabel("Males", "276472");
+//		homePage.enterToHeaderTextboxByLabel("Total", "553353");
+//		homePage.sleepInSecond(3);
+//	}
 
 	@Test
 	public void Table_03_Customer_Info() {

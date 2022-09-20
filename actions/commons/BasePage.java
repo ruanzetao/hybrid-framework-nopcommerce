@@ -431,7 +431,7 @@ public class BasePage {
 				ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, getDynamicXpath(locatorType, dynamicValues))));
 	}
 
-	protected void waitForElementClickable(WebDriver driver, String xpathlocator) {
+	public void waitForElementClickable(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(xpathlocator)));
 	}
