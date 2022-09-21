@@ -21,7 +21,8 @@ import pageObjects.nopCommerce.user.UserAddressPageObject;
 import pageObjects.nopCommerce.user.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
-import pageUIs.nopCommerce.user.BasePageUI;
+import pageUIs.jQuery.uploadFile.BasePageJQueryUI;
+import pageUIs.nopCommerce.user.BasePageUINopCommerce;
 
 public class BasePage {
 
@@ -404,6 +405,18 @@ public class BasePage {
 		}
 	}
 
+	public boolean isImageLoaded(WebDriver driver, String locatorType, String... dynamicValues) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		boolean status = (boolean) jsExecutor.executeScript(
+				"return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
+				getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)));
+		if (status) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void waitForElementVisible(WebDriver driver, String xpathlocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeOut);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(xpathlocator)));
@@ -467,8 +480,8 @@ public class BasePage {
 
 	// Tối ưu ở bài Dynamic Locator update
 	public BasePage openMyAccountPagebyName(WebDriver driver, String pageName) {
-		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
-		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
+		waitForElementClickable(driver, BasePageUINopCommerce.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
+		clickToElement(driver, BasePageUINopCommerce.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
 		switch (pageName) {
 		case "Customer info":
 			return PageGeneratorManager.getCustomerInforPage(driver);
@@ -485,26 +498,26 @@ public class BasePage {
 
 	// Tối ưu ở bài Switch Page
 	public UserAddressPageObject openAddressPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
-		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+		waitForElementClickable(driver, BasePageUINopCommerce.ADDRESS_LINK);
+		clickToElement(driver, BasePageUINopCommerce.ADDRESS_LINK);
 		return PageGeneratorManager.getAddressPage(driver);
 	}
 
 	public UserCustomerInforPageObject openCustomerInforPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.ADDRESS_LINK);
-		clickToElement(driver, BasePageUI.ADDRESS_LINK);
+		waitForElementClickable(driver, BasePageUINopCommerce.ADDRESS_LINK);
+		clickToElement(driver, BasePageUINopCommerce.ADDRESS_LINK);
 		return PageGeneratorManager.getCustomerInforPage(driver);
 	}
 
 	public UserMyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		waitForElementClickable(driver, BasePageUINopCommerce.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUINopCommerce.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getMyProductReviewPage(driver);
 	}
 
 	public UserRewardPointPageObject openRewardPointPage(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		waitForElementClickable(driver, BasePageUINopCommerce.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUINopCommerce.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getRewardPointPage(driver);
 	}
 
@@ -518,5 +531,15 @@ public class BasePage {
 	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key, String... dynamicValues) {
 		Actions action = new Actions(driver);
 		action.sendKeys(getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)), key).perform();
+	}
+
+	public void uploadMultipleFiles(WebDriver driver, String... fileNames) {
+		String filePath = GlobalConstants.UPLOAD_FILE;
+		String fullFileName = "";
+		for (String file : fileNames) {
+			fullFileName = fullFileName + filePath + file + "\n";
+		}
+		fullFileName = fullFileName.trim();
+		getWebElement(driver, BasePageJQueryUI.UPLOAD_FILE).sendKeys(fullFileName);
 	}
 }

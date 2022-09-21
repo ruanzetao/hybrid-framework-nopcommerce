@@ -1,4 +1,4 @@
-package pageObjects.jQuery;
+package pageObjects.jQuery.dataTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import commons.BasePage;
-import pageUIs.jQuery.HomePageUI;
+import pageUIs.jQuery.dataTable.HomePageUI;
 
 public class HomePageObject extends BasePage {
 	WebDriver driver;
@@ -91,5 +91,10 @@ public class HomePageObject extends BasePage {
 		// Wait and click to a row
 		waitForElementClickable(driver, HomePageUI.DROPDOWN_BY_COLUMN_INDEX_AND_ROW_INDEX, rowNumber, String.valueOf(columnIndex));
 		uncheckToDefaultCheckbox(driver, HomePageUI.CHECKBOX_BY_COLUMN_INDEX_AND_ROW_INDEX, rowNumber, String.valueOf(columnIndex));
+	}
+
+	public boolean isFileLoadedByName(String fileName) {
+		waitForElementVisible(driver, pageUIs.jQuery.uploadFile.HomePageUI.FILE_NAME_LOADED, fileName);
+		return isElementDisplayed(driver, pageUIs.jQuery.uploadFile.HomePageUI.FILE_NAME_LOADED, fileName);
 	}
 }
