@@ -71,7 +71,6 @@ public class Level_11_Upload_Files extends BaseTest {
 	public int generateFakeNumber() {
 		Random rand = new Random();
 		return (int) rand.nextInt(9999);
-
 	}
 
 	@AfterClass
