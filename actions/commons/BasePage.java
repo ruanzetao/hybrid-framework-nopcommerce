@@ -287,6 +287,14 @@ public class BasePage {
 		return getWebElement(driver, xpathLocator).isDisplayed();
 	}
 
+	protected boolean isElementUndisplayed(WebDriver driver, String xpathLocator) {
+		boolean status = true;
+		if (getWebElement(driver, xpathLocator).isDisplayed()) {
+			status = false;
+		}
+		return status;
+	}
+
 	protected boolean isElementDisplayed(WebDriver driver, String locatorType, String... dynamicValues) {
 		return getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)).isDisplayed();
 	}
