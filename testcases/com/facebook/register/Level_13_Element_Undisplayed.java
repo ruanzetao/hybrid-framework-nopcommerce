@@ -47,6 +47,12 @@ public class Level_13_Element_Undisplayed extends BaseTest {
 
 	@Test
 	public void TC_03_Verify_Element_UnDisplayed_Not_In_DOM() {
+		loginPage.clickCloseIconAtRegisterForm();
+		loginPage.sleepInSecond(3);
+		// C2: Verify false - cho hàm trả về là Displayed
+		// verifyFalse(loginPage.isConfirmEmailAddressTextboxDisplayed());
+
+		verifyTrue(loginPage.isConfirmEmailAddressTextboxUndisplayed());
 	}
 
 	public int generateFakeNumber() {

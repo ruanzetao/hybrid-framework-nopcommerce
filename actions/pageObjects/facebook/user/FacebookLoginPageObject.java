@@ -40,4 +40,13 @@ public class FacebookLoginPageObject extends BasePage {
 		return isElementDisplayed(driver, FacebookLoginPageUI.CONFIRM_EMAIL_ADDRESS_TEXTBOX);
 	}
 
+	public void clickCloseIconAtRegisterForm() {
+		waitForElementClickable(driver, FacebookLoginPageUI.CLOSE_ICON);
+		clickToElement(driver, FacebookLoginPageUI.CLOSE_ICON);
+	}
+
+	public boolean isConfirmEmailAddressTextboxUndisplayed() {
+		return isElementUndisplayed(driver, FacebookLoginPageUI.CONFIRM_EMAIL_ADDRESS_TEXTBOX);
+	}
+
 }
