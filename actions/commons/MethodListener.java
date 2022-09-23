@@ -2,8 +2,8 @@ package commons;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.seleniumhq.jetty9.util.log.Log;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
@@ -11,6 +11,7 @@ import org.testng.Reporter;
 import org.testng.internal.Utils;
 
 public class MethodListener implements IInvokedMethodListener {
+
 	@Override
 	public void beforeInvocation(IInvokedMethod method, ITestResult result) {
 		log.debug("Before invocation of " + method.getTestMethod().getMethodName());
