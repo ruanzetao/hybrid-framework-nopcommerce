@@ -21,6 +21,10 @@ public class BaseTest {
 		log = LogFactory.getLog(getClass());
 	}
 
+	public WebDriver getWebDriver() {
+		return driver;
+	}
+
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equals("firefox")) {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
