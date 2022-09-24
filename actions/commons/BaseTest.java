@@ -21,7 +21,7 @@ public class BaseTest {
 		log = LogFactory.getLog(getClass());
 	}
 
-	public WebDriver getWebDriver() {
+	public WebDriver getDriverInstance() {
 		return driver;
 	}
 
