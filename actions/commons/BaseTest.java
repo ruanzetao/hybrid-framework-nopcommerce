@@ -63,11 +63,13 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			if (condition == true) {
-				System.out.println(" -------------------------- PASSED -------------------------- ");
-				// log.info(" -------------------------- PASSED -------------------------- ");
+				// System.out.println(" -------------------------- PASSED
+				// -------------------------- ");
+				log.info(" -------------------------- PASSED -------------------------- ");
 			} else {
-				System.out.println(" -------------------------- FAILED -------------------------- ");
-				// log.info(" -------------------------- FAILED -------------------------- ");
+				// System.out.println(" -------------------------- FAILED
+				// -------------------------- ");
+				log.info(" -------------------------- FAILED -------------------------- ");
 			}
 			Assert.assertTrue(condition);
 		} catch (Throwable e) {
@@ -88,11 +90,13 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			if (condition == false) {
-				System.out.println(" -------------------------- PASSED -------------------------- ");
-				// log.info(" -------------------------- PASSED -------------------------- ");
+				// System.out.println(" -------------------------- PASSED
+				// -------------------------- ");
+				log.info(" -------------------------- PASSED -------------------------- ");
 			} else {
-				System.out.println(" -------------------------- FAILED -------------------------- ");
-				// log.info(" -------------------------- FAILED -------------------------- ");
+				// System.out.println(" -------------------------- FAILED
+				// -------------------------- ");
+				log.info(" -------------------------- FAILED -------------------------- ");
 			}
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
@@ -111,12 +115,14 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			Assert.assertEquals(actual, expected);
-			System.out.println(" -------------------------- PASSED -------------------------- ");
-			// log.info(" -------------------------- PASSED -------------------------- ");
+			// System.out.println(" -------------------------- PASSED
+			// -------------------------- ");
+			log.info(" -------------------------- PASSED -------------------------- ");
 		} catch (Throwable e) {
 			pass = false;
-			System.out.println(" -------------------------- FAILED -------------------------- ");
-			// log.info(" -------------------------- FAILED -------------------------- ");
+			// System.out.println(" -------------------------- FAILED
+			// -------------------------- ");
+			log.info(" -------------------------- FAILED -------------------------- ");
 			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
 			Reporter.getCurrentTestResult().setThrowable(e);
 		}
