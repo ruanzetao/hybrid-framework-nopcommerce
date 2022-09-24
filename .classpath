@@ -22,5 +22,10 @@
 	<classpathentry kind="lib" path="library/commons-lang3-3.8.1.jar"/>
 	<classpathentry kind="lib" path="library/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="library/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="libLog4j/commons-codec-1.11.jar"/>
+	<classpathentry kind="lib" path="libLog4j/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="libLog4j/commons-lang3-3.8.1.jar"/>
+	<classpathentry kind="lib" path="libLog4j/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libLog4j/log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

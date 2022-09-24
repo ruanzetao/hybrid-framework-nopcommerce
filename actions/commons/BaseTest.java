@@ -3,6 +3,8 @@ package commons;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -11,6 +13,13 @@ import org.testng.Reporter;
 public class BaseTest {
 	protected WebDriver driver;
 	private String projectPath = System.getProperty("user.dir");
+
+	protected final Log log;
+
+	// Init log
+	protected BaseTest() {
+		log = LogFactory.getLog(getClass());
+	}
 
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equals("firefox")) {
