@@ -56,7 +56,7 @@ public class Level_15_Allure extends BaseTest {
 	@Test
 	public void TC_01_Register_Success() {
 		homePage.clickToRegisterLink();
-		registerPage.inputToFirstn ameTextbox(firstName);
+		registerPage.inputToFirstnameTextbox(firstName);
 		registerPage.inputToLastnameTextbox(lastName);
 		registerPage.inputToEmailTextbox(emailAddress);
 		registerPage.inputToPasswordTextbox(password);
