@@ -3,6 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import io.qameta.allure.Step;
 import pageUIs.nopCommerce.user.UserRegisterPageUI;
 
 public class UserRegisterPageObject extends BasePage {
@@ -42,6 +43,7 @@ public class UserRegisterPageObject extends BasePage {
 		return getElementText(driver, UserRegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
 	}
 
+	@Step("Enter to Firstname textbox with value is {0}")
 	public void inputToFirstnameTextbox(String firstName) {
 		waitForElementVisible(driver, UserRegisterPageUI.FIRST_NAME_TEXTBOX);
 		sendkeyToElement(driver, UserRegisterPageUI.FIRST_NAME_TEXTBOX, firstName);

@@ -17,6 +17,7 @@ public class GlobalConstants {
 	public static final String DRAG_DROP_HTML5 = PROJECT_PATH + File.separator + "dragDropHTML5";
 	public static final String AUTO_IT_SCRIPT = PROJECT_PATH + File.separator + "autoIT";
 	public static final String REPORT_NG_SCREENSHOT = PROJECT_PATH + File.separator + "ReportNGImages" + File.separator;
+	public static final String EXTENT_PATH = PROJECT_PATH + File.separator + "ReportNGImages" + File.separator;
 
 	// DB, Account, IP, User, Pass, Port
 
