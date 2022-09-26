@@ -1,5 +1,6 @@
 package commons;
 
+import java.io.File;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,8 @@ public class BaseTest {
 	public WebDriver getDriverInstance() {
 		return driver;
 	}
+
+	// Thêm @BeforeSuite cho Allure để xóa file trong thư mục có sẵn
 
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equals("firefox")) {
@@ -141,5 +144,29 @@ public class BaseTest {
 		Random rand = new Random();
 		return (int) rand.nextInt(9999);
 
+	}
+
+	// @BeforeSuite
+	public void deleteAllFilesInReportNGScreenshot() {
+		System.out.println("---------- START delete file in folder ----------");
+		deleteAllFileInFolder();
+		System.out.println("---------- END delete file in folder ----------");
+	}
+
+	public void deleteAllFileInFolder() {
+		try {
+			String workingDir = System.getProperty("user.dir");
+			String pathFolderDownload = workingDir + "\\ReportNGImages";
+			File file = new File(pathFolderDownload);
+			File[] listOfFiles = file.listFiles();
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].isFile()) {
+					System.out.println(listOfFiles[i].getName());
+					new File(listOfFiles[i].toString()).delete();
+				}
+			}
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+		}
 	}
 }
