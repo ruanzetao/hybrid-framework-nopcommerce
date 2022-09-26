@@ -1,7 +1,9 @@
 package com.nopcommerce.common;
 
 import java.util.Random;
+import java.util.Set;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -14,18 +16,20 @@ import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
-public class Common_01_Register extends BaseTest {
+public class Common_01_Register_Cookie extends BaseTest {
 
 	private WebDriver driver;
 
-	public static String emailAddress;
-	public static String validPassword;
+	private String emailAddress;
+	private String validPassword;
 	private String firstName;
 	private String lastName;
 
 	private UserHomePageObject homePage;
 	private UserRegisterPageObject registerPage;
 	private UserLoginPageObject loginPage;
+
+	public static Set<Cookie> loggedCookies;
 
 	@Parameters("browser")
 	@BeforeTest(description = "Create new Account for all Class Test")
@@ -50,29 +54,15 @@ public class Common_01_Register extends BaseTest {
 		registerPage.clickToRegisterButton();
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 		registerPage.clickToLogoutLink();
+
+		// Login
+		homePage.clickToRegisterLink();
+		loginPage = homePage.clickToLoginLink();
+		loginPage.inputToEmailTextbox(emailAddress);
+		loginPage.inputToPasswordTextbox(validPassword);
+
+		loggedCookies = homePage.getAllCookies(driver);
 	}
-
-//	@Test
-//	public void TC_01_Register_Success() {
-//		registerPage = homePage.clickToRegisterLink();
-//		registerPage.inputToFirstnameTextbox(firstName);
-//		registerPage.inputToLastnameTextbox(lastName);
-//		registerPage.inputToEmailTextbox(emailAddress);
-//		registerPage.inputToPasswordTextbox(validPassword);
-//		registerPage.inputToConfirmPasswordTextbox(validPassword);
-//		registerPage.clickToRegisterButton();
-//		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-//		registerPage.clickToLogoutLink();
-//	}
-
-//	@Test
-//	public void TC_02_Login_Success() {
-//		homePage.clickToRegisterLink();
-//		loginPage = homePage.clickToLoginLink();
-//		loginPage.inputToEmailTextbox(emailAddress);
-//		loginPage.inputToPasswordTextbox(validPassword);
-//
-//	}
 
 	public int generateFakeNumber() {
 		Random rand = new Random();

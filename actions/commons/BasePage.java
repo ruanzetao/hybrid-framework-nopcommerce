@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -586,6 +587,17 @@ public class BasePage {
 		}
 		fullFileName = fullFileName.trim();
 		getWebElement(driver, BasePageJQueryUI.UPLOAD_FILE).sendKeys(fullFileName);
+	}
+
+	public void setCookie(WebDriver driver, Set<Cookie> cookies) {
+		for (Cookie cookie : cookies) {
+			driver.manage().addCookie(cookie);
+			sleepInSecond(3);
+		}
+	}
+
+	public Set<Cookie> getAllCookies(WebDriver driver) {
+		return driver.manage().getCookies();
 	}
 
 	private long longTimeout = GlobalConstants.LONG_TIMEOUT;
