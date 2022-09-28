@@ -569,9 +569,48 @@ public class BasePage {
 		return PageGeneratorManager.getRewardPointPage(driver);
 	}
 
+	// Pattern Objects
+	/**
+	 * Enter to dynamic Textbox by ID
+	 * 
+	 * @author XanSan
+	 * @param driver
+	 * @param textboxID
+	 * @param value
+	 */
+	public void inputToTextboxByID(WebDriver driver, String textboxID, String value) {
+		waitForAllElementsVisible(driver, BasePageUINopCommerce.DYNAMIC_TEXTBOX_BY_ID, textboxID);
+		sendkeyToElement(driver, BasePageUINopCommerce.DYNAMIC_TEXTBOX_BY_ID, value, textboxID);
+	}
+
+	public void clickToButtonByText(WebDriver driver, String buttonText) {
+		waitForElementClickable(driver, BasePageUINopCommerce.DYNAMIC_BUTTON_BY_TEXT, buttonText);
+		clickToElement(driver, BasePageUINopCommerce.DYNAMIC_BUTTON_BY_TEXT, buttonText);
+	}
+
+	public void selectToDropdownByName(WebDriver driver, String dropdownAttribute, String itemValue) {
+		waitForElementClickable(driver, BasePageUINopCommerce.DYNAMIC_DROPDOWN_BY_NAME, dropdownAttribute);
+		selectItemInDefaultDropdown(driver, BasePageUINopCommerce.DYNAMIC_DROPDOWN_BY_NAME, itemValue, dropdownAttribute);
+	}
+
 	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key) {
 		Actions action = new Actions(driver);
 		action.sendKeys(getWebElement(driver, locatorType), key).perform();
+	}
+
+	public void clickToRadioButtonByLabel(WebDriver driver, String checkboxLabelName) {
+		waitForElementClickable(driver, BasePageUINopCommerce.DYNAMIC_RADIO_BUTTON_BY_LABEL, checkboxLabelName);
+		checkToDefaultCheckboxRadio(driver, BasePageUINopCommerce.DYNAMIC_RADIO_BUTTON_BY_LABEL, checkboxLabelName);
+	}
+
+	public void clickToCheckboxByLabel(WebDriver driver, String checkboxLabelName) {
+		waitForElementClickable(driver, BasePageUINopCommerce.DYNAMIC_CHECKBOX_BY_LABEL, checkboxLabelName);
+		checkToDefaultCheckboxRadio(driver, BasePageUINopCommerce.DYNAMIC_CHECKBOX_BY_LABEL, checkboxLabelName);
+	}
+
+	public String getTextboxValueByID(WebDriver driver, String textboxID) {
+		waitForElementVisible(driver, BasePageUINopCommerce.DYNAMIC_TEXTBOX_BY_ID, textboxID);
+		return getElementAttribute(driver, BasePageUINopCommerce.DYNAMIC_TEXTBOX_BY_ID, "value", textboxID);
 	}
 
 	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key, String... dynamicValues) {
