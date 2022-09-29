@@ -639,6 +639,7 @@ public class BasePage {
 		return driver.manage().getCookies();
 	}
 
+	// Local configures
 	private long longTimeout = GlobalConstants.LONG_TIMEOUT;
 	private long shortTimeout = GlobalConstants.SHORT_TIMEOUT;
 }
