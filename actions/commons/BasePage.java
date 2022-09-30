@@ -628,6 +628,8 @@ public class BasePage {
 		getWebElement(driver, BasePageJQueryUI.UPLOAD_FILE).sendKeys(fullFileName);
 	}
 
+	// Cookie settings
+
 	public void setCookie(WebDriver driver, Set<Cookie> cookies) {
 		for (Cookie cookie : cookies) {
 			driver.manage().addCookie(cookie);
